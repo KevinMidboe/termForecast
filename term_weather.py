@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-27 23:03:19
+# @Last Modified time: 2017-07-27 23:39:00
 
 # TOD LIST
 # Get coordinates from IP
@@ -21,45 +21,46 @@ from pprint import pprint
 class Location(object):
 	def __init__(self):
 		self.reader = geoip2.database.Reader('conf/GeoLite2-City.mmdb')
-		self.lat = None
-		self.long = None
+		self.getIP()
 
 	def getIP(self):
 		ip = get('https://api.ipify.org').text
-		return ip
+		self.ip = self.reader.city(ip)
 
 	def getCoordinates(self):
-		ip = self.getIP()
-		ip_locaiton = self.reader.city(ip)
-
-		self.lat = ip_locaiton.location.latitude
-		self.long = ip_locaiton.location.longitude
+		lat = self.ip.location.latitude
+		long = self.ip.location.longitude
+		return [lat, long]
 
 
 class WeatherForcast(object):
-	"""docstring for WeatherForcast"""
-	def __init__(self, location):
-		self.location = location
+	def __init__(self, area=None):
+		# TODO search for area coordinates in a map
+		self.area = area
 
 	def now(self):
-		lat = self.location.lat
-		long = self.location.long
-		print(lat, long)
+		location = Location()
+		lat, long = location.getCoordinates()
+		print('Coords: ', lat, long)
+		print(' - - - - - - - - ')
 
 		weather = Yr(coordinates=(lat, long, 10))
 		now = json.loads(weather.now(as_json=True))
-		pprint(now)
+
+		temp = now['location']['temperature']
+		print(temp['@value'] + ' ' + temp['@unit'])
 		
 
 
 class TermWeather(object):
 	# Add now, forcast as args
 	def auto(self):
-		location = Location()
-		location.getCoordinates()
+		WeatherForcast.now(self)
 
-		weatherForcast = WeatherForcast(location)
+	def fetch(self, area=None):
+		weatherForcast = WeatherForcast(area)
 		weatherForcast.now()
+		
 
 if __name__ == '__main__':
 	ssl._create_default_https_context = ssl._create_unverified_context
