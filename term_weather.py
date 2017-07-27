@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-27 22:13:22
+# @Last Modified time: 2017-07-27 22:18:07
 
 # TOD LIST
 # Get coordinates from IP
@@ -30,7 +30,10 @@ class Location(object):
 
 	def getCoordinates(self):
 		ip = self.getIP()
-		print(self.reader.city(ip))
+		ip_locaiton = self.reader.city(ip)
+
+		self.latitude = ip_locaiton.location.latitude
+		self.longitude = ip_locaiton.location.longitude
 
 
 class TermWeather(object):
