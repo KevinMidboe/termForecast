@@ -3,15 +3,16 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-28 17:30:12
+# @Last Modified time: 2017-07-28 20:11:27
 
 # TODO LIST
 # Get coordinates from IP ✔
 # Fetch coordinates from YR ✔
-# Convert coordinates to place name w/ google GeoCode api
+# Convert coordinates to place name w/ google GeoCode api ✔
 # Parse return data
-# Match weather description to icons 
+# Match weather description to icons ✔
 # Check internet connection in a strict way
+# Add table for time periode
 
 import fire, json, geoip2.database, ssl
 from yr.libyr import Yr
@@ -63,28 +64,47 @@ class WeatherForcast(object):
 	def __init__(self, area=None):
 		# TODO search for area coordinates in a map
 		self.area = area
+		self.symbol_table = {
+			'Clear sky': '☀️',
+			'Fair': '🌤',
+			'Partly cloudy': '⛅️',
+			'Cloudy': '☁️',
+			'Light rain showers': '🌦'
+		}
+		self.name = None
+		self.number = None
+		self.variable = None
+
+	def symbolVariables(self, symbol_obj):
+		self.name = symbol_obj['@name']
+		self.number = symbol_obj['@number']
+		self.variable = symbol_obj['@var']
 
 	def now(self):
 		location = Location()
 		self.area = location.getAreaName()
-		print('Area: ', self.area)
-		print(' - - - - - - - - ')
+		# print('Area: ', self.area)
+		# print(' - - - - - - - - ')
 
 		# Create seperate function for formatting
 		locationName = '/'.join([self.area['country'], self.area['municipality'], self.area['town'], self.area['street']])
 
 		weather = Yr(location_name=locationName)
 		now = json.loads(weather.now(as_json=True))
+		
+		self.symbolVariables(now['symbol'])
 
 		temp = now['temperature']
-		print(temp['@value'] + ' ' + temp['@unit'])
+		print(temp['@value'] + ' ' + temp['@unit'] + ' ' + self.symbol_table[self.name])
+
 		
 
 
 class TermWeather(object):
 	# Add now, forcast as args
 	def auto(self):
-		WeatherForcast.now(self)
+		weatherForcast = WeatherForcast()
+		weatherForcast.now()
 
 	def fetch(self, area=None):
 		weatherForcast = WeatherForcast(area)
