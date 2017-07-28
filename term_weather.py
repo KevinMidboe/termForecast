@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-28 13:58:43
+# @Last Modified time: 2017-07-28 17:30:12
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -33,6 +33,31 @@ class Location(object):
 		long = self.ip.location.longitude
 		return [lat, long]
 
+	def getAreaName(self):
+		lat, long = self.getCoordinates()
+		coordinates = ','.join([str(lat), str(long)])
+		areaURL = 'https://maps.googleapis.com/maps/api/geocode/json?&latlng='
+
+		areaAPIResponse = json.loads(get(areaURL + coordinates).text)
+		closestArea = areaAPIResponse['results'][0]['address_components']
+
+		area = {}
+
+		for item in closestArea:
+			if 'route' in item['types']:
+				area['street'] = item['long_name']
+
+			if 'locality' in item['types']:
+				area['town'] = item['long_name']
+
+			if 'administrative_area_level_1' in item['types']:
+				area['municipality'] = item['long_name']
+
+			if 'country' in item['types']:
+				area['country'] = item['long_name']
+
+		return area
+
 
 class WeatherForcast(object):
 	def __init__(self, area=None):
@@ -41,14 +66,17 @@ class WeatherForcast(object):
 
 	def now(self):
 		location = Location()
-		lat, long = location.getCoordinates()
-		print('Coords: ', lat, long)
+		self.area = location.getAreaName()
+		print('Area: ', self.area)
 		print(' - - - - - - - - ')
 
-		weather = Yr(coordinates=(lat, long, 10))
+		# Create seperate function for formatting
+		locationName = '/'.join([self.area['country'], self.area['municipality'], self.area['town'], self.area['street']])
+
+		weather = Yr(location_name=locationName)
 		now = json.loads(weather.now(as_json=True))
 
-		temp = now['location']['temperature']
+		temp = now['temperature']
 		print(temp['@value'] + ' ' + temp['@unit'])
 		
 
