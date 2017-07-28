@@ -3,11 +3,12 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-27 23:39:00
+# @Last Modified time: 2017-07-28 13:58:43
 
-# TOD LIST
-# Get coordinates from IP
-# Fetch coordinates from YR
+# TODO LIST
+# Get coordinates from IP ✔
+# Fetch coordinates from YR ✔
+# Convert coordinates to place name w/ google GeoCode api
 # Parse return data
 # Match weather description to icons 
 # Check internet connection in a strict way
