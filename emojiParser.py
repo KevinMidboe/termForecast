@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-29 11:56:24
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-29 18:26:06
+# @Last Modified time: 2017-07-29 18:36:55
 
 from fuzzywuzzy import process
 
@@ -114,18 +114,18 @@ class EmojiParser(object):
 		self.findWeatherTokens()
 		
 		noun_list = self.nouns
-		print(noun_list)
 
 		primary_forcast = noun_list.pop(0)
 		primary_severity = severity[primary_forcast][self.severity]
 		secondary_forcast = self.emojifyList(noun_list)
 		
-		print('%s %s  %s' % (self.emojify(primary_forcast), primary_severity, secondary_forcast))
+		return ('%s %s  %s' % (self.emojify(primary_forcast), primary_severity, secondary_forcast))
 
 
 	def convertSematicsToEmoji(self):
 		self.severityValue()
-		self.emojifyWeatherForecast()
+		emojiForcast = self.emojifyWeatherForecast()
+		return emojiForcast
 
 
 def main():

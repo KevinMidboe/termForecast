@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-29 12:29:34
+# @Last Modified time: 2017-07-29 18:36:36
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -18,6 +18,7 @@ import fire, json, geoip2.database, ssl
 from yr.libyr import Yr
 from requests import get
 from pprint import pprint
+from emojiParser import EmojiParser
 
 
 class Location(object):
@@ -143,6 +144,8 @@ class WeatherForcast(object):
 		
 		self.symbolVariables(now['symbol'])
 
+		emojiParser = EmojiParser(now['symbol']['@name'])
+		print(emojiParser.convertSematicsToEmoji())
 		temp = now['temperature']
 		print(temp['@value'] + ' ' + temp['@unit'] + ' ' + self.symbol_table[self.name])
 
