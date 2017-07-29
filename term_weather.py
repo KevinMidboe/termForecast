@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-28 20:11:27
+# @Last Modified time: 2017-07-29 12:29:34
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -69,7 +69,56 @@ class WeatherForcast(object):
 			'Fair': '🌤',
 			'Partly cloudy': '⛅️',
 			'Cloudy': '☁️',
-			'Light rain showers': '🌦'
+			
+			'Light rain showers': '🌦',
+			'Rain showers': '🌦 ☂️',
+			'Heavy rain showers': '🌦 ☔️',
+			
+			'Light rain showers and thunder': '',
+			'Rain showers AND thunder': '',
+			'Heavy rain showers and thunder': '',
+			
+			'Light sleet showers': '',
+			'Sleet showers': '',
+			'Heavy sleet showers': '',
+			
+			'Light sleet showers and thunder': '',
+			'Sleet showers and thunder': '',
+			'Heavy sleet showers and thunder': '',
+			
+			'Light snow showers': '',
+			'Snow showers': '',
+			'Heavy snow showers': '',
+			
+			'Light snow showers and thunder': '',
+			'Snow showers and thunder': '',
+			'Heavy snow showers and thunder': '',
+			
+			'Light rain': '',
+			'Rain': '',
+			'Heavy rain': '',
+			
+			'Light rain and thunder': '',
+			'Rain and thunder': '',
+			'Heavy rain and thunder': '',
+			
+			'Light sleet': '',
+			'Sleet': '',
+			'Heavy sleet': '',
+			
+			'Light sleet and thunder': '',
+			'Sleet and thunder': '',
+			'Heavy sleet and thunder': '',
+			
+			'Light Snow': '',
+			'Snow': '',
+			'Heavy Snow': '',
+			'Light snow and thunder': '',
+			'Snow and thunder': '',
+			'Heavy snow and thunder': '',
+			'Fog': ''
+
+
 		}
 		self.name = None
 		self.number = None
