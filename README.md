@@ -4,6 +4,7 @@
 <img src="media/demo.gif" width="428" height="232">
 
 Terminal Weather is a easily accesible terminal based weather station.
+
 Receive the weather forcast, either by hour or forcast from current location or query a certain place. 
 
 
