@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-29 11:56:24
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-30 10:31:52
+# @Last Modified time: 2017-07-30 13:17:19
 
 from fuzzywuzzy import process
 
@@ -101,7 +101,7 @@ class EmojiParser(object):
 			self.nouns = [sentence]
 
 
-	# Use the symbol_table to convert the forcast name to emoji
+	# Use the symbol_table to convert the forecast name to emoji
 	def emojify(self, noun):
 		return symbol_table[noun]
 
@@ -115,18 +115,18 @@ class EmojiParser(object):
 
 		return '  '.join(returnList)
 
-	def findPrimaryForcast(self):
+	def findPrimaryForecast(self):
 		# Copies the contents not the refrence to the list
 		noun_list = list(self.nouns)
-		forcast = noun_list.pop(0)
+		forecast = noun_list.pop(0)
 
 		# Translates to emoji once here instead of twice below
-		forcast_emoji = self.emojify(forcast)
+		forecast_emoji = self.emojify(forecast)
 
-		if forcast in severity:
-			return ('%s %s' % (forcast_emoji, severity[forcast]))
+		if forecast in severity:
+			return ('%s %s' % (forecast_emoji, severity[forecast]))
 		else:
-			return forcast_emoji
+			return forecast_emoji
 
 
 	# Trying to analyze the semantics of the condition text
@@ -135,10 +135,10 @@ class EmojiParser(object):
 		self.findWeatherTokens()
 		self.severityValue()
 
-		primary_forcast = self.findPrimaryForcast()
-		secondary_forcast = self.emojifyList(self.nouns[1:])
+		primary_forecast = self.findPrimaryForecast()
+		secondary_forecast = self.emojifyList(self.nouns[1:])
 		
-		return ('%s %s' % (primary_forcast, secondary_forcast))
+		return ('%s %s' % (primary_forecast, secondary_forecast))
 
 
 	def convertSematicsToEmoji(self):
