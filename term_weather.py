@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-30 13:16:18
+# @Last Modified time: 2017-07-30 14:05:28
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -22,7 +22,7 @@ from pprint import pprint
 from sys import stdout
 
 from emojiParser import EmojiParser
-from waiting_animation import LoadingAnimation
+from loadingAnimation import LoadingAnimation
 
 
 class Location(object):
