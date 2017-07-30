@@ -1,10 +1,9 @@
 # Terminal Weather
 [![Python](https://img.shields.io/badge/python-v3.6.0-blue.svg)](https://www.python.org/downloads)
 
-Terminal Weather is a easily accesible terminal based weather station.
-
 <img src="media/demo.gif" width="428" height="232">
 
+Terminal Weather is a easily accesible terminal based weather station.
 Receive the weather forcast, either by hour or forcast from current location or query a certain place. 
 
 
