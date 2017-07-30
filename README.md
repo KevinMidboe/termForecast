@@ -3,7 +3,7 @@
 
 Terminal Weather is a easily accesible terminal based weather station.
 
-[![weatherInAction](https://i.imgur.com/EdtFau5.gif)](https://i.imgur.com/EdtFau5.gif)
+<img src="media/demo.gif" width="428" height="232">
 
 Receive the weather forcast, either by hour or forcast from current location or query a certain place. 
 
