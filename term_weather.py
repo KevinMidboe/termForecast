@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-30 10:34:41
+# @Last Modified time: 2017-07-30 13:16:18
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -13,16 +13,24 @@
 # Match weather description to icons ✔
 # Check internet connection in a strict way
 # Add table for time periode
+# Add cache for quicker location for same ip
 
-import fire, json, geoip2.database, ssl
+import fire, json, geoip2.database, ssl, os
 from yr.libyr import Yr
 from requests import get
 from pprint import pprint
+from sys import stdout
+
 from emojiParser import EmojiParser
+from waiting_animation import LoadingAnimation
 
 
 class Location(object):
 	def __init__(self):
+
+		abspath = os.path.abspath(__file__)
+		dname = os.path.dirname(abspath)
+		os.chdir(dname)
 		self.reader = geoip2.database.Reader('conf/GeoLite2-City.mmdb')
 		self.getIP()
 
@@ -61,7 +69,7 @@ class Location(object):
 		return area
 
 
-class WeatherForcast(object):
+class WeatherForecast(object):
 	def __init__(self, area=None):
 		# TODO search for area coordinates in a map
 		self.area = area
@@ -84,7 +92,7 @@ class WeatherForcast(object):
 
 		# Create seperate function for formatting
 		locationName = '/'.join([self.area['country'], self.area['municipality'], self.area['town'], self.area['street']])
-		
+
 		# Use the defined location name with yr API for location based weather information
 		weather = Yr(location_name=locationName)
 		now = json.loads(weather.now(as_json=True))
@@ -95,18 +103,22 @@ class WeatherForcast(object):
 		emojiParser = EmojiParser(now['symbol']['@name'])
 		weatherIcon_output = emojiParser.convertSematicsToEmoji()
 
-		print('%s %s' % (temperature_output, weatherIcon_output))
+		return ('%s %s' % (temperature_output, weatherIcon_output))
 
 
 class TermWeather(object):
-	# Add now, forcast as args
+	# Add now, forecast as args
 	def auto(self):
-		weatherForcast = WeatherForcast()
-		weatherForcast.now()
+		loadingAnimation = LoadingAnimation()
+		loadingAnimation.start()
+		weatherForecast = WeatherForecast()
+		forecast = weatherForecast.now()
+		loadingAnimation.stop()
+		stdout.write('\r%s          \n' % forecast)
 
 	def fetch(self, area=None):
-		weatherForcast = WeatherForcast(area)
-		weatherForcast.now()
+		weatherForecast = WeatherForcast(area)
+		weatherForecast.now()
 		
 
 if __name__ == '__main__':
