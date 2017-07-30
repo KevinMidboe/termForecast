@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-29 18:36:36
+# @Last Modified time: 2017-07-30 10:34:41
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -65,62 +65,7 @@ class WeatherForcast(object):
 	def __init__(self, area=None):
 		# TODO search for area coordinates in a map
 		self.area = area
-		self.symbol_table = {
-			'Clear sky': '☀️',
-			'Fair': '🌤',
-			'Partly cloudy': '⛅️',
-			'Cloudy': '☁️',
-			
-			'Light rain showers': '🌦',
-			'Rain showers': '🌦 ☂️',
-			'Heavy rain showers': '🌦 ☔️',
-			
-			'Light rain showers and thunder': '',
-			'Rain showers AND thunder': '',
-			'Heavy rain showers and thunder': '',
-			
-			'Light sleet showers': '',
-			'Sleet showers': '',
-			'Heavy sleet showers': '',
-			
-			'Light sleet showers and thunder': '',
-			'Sleet showers and thunder': '',
-			'Heavy sleet showers and thunder': '',
-			
-			'Light snow showers': '',
-			'Snow showers': '',
-			'Heavy snow showers': '',
-			
-			'Light snow showers and thunder': '',
-			'Snow showers and thunder': '',
-			'Heavy snow showers and thunder': '',
-			
-			'Light rain': '',
-			'Rain': '',
-			'Heavy rain': '',
-			
-			'Light rain and thunder': '',
-			'Rain and thunder': '',
-			'Heavy rain and thunder': '',
-			
-			'Light sleet': '',
-			'Sleet': '',
-			'Heavy sleet': '',
-			
-			'Light sleet and thunder': '',
-			'Sleet and thunder': '',
-			'Heavy sleet and thunder': '',
-			
-			'Light Snow': '',
-			'Snow': '',
-			'Heavy Snow': '',
-			'Light snow and thunder': '',
-			'Snow and thunder': '',
-			'Heavy snow and thunder': '',
-			'Fog': ''
 
-
-		}
 		self.name = None
 		self.number = None
 		self.variable = None
@@ -130,26 +75,27 @@ class WeatherForcast(object):
 		self.number = symbol_obj['@number']
 		self.variable = symbol_obj['@var']
 
+	def parseYrTemperature(self, temperature_obj):
+		return temperature_obj['@value'] + ' ' + temperature_obj['@unit']
+
 	def now(self):
 		location = Location()
 		self.area = location.getAreaName()
-		# print('Area: ', self.area)
-		# print(' - - - - - - - - ')
 
 		# Create seperate function for formatting
 		locationName = '/'.join([self.area['country'], self.area['municipality'], self.area['town'], self.area['street']])
-
+		
+		# Use the defined location name with yr API for location based weather information
 		weather = Yr(location_name=locationName)
 		now = json.loads(weather.now(as_json=True))
-		
-		self.symbolVariables(now['symbol'])
+
+
+		temperature_output = self.parseYrTemperature(now['temperature'])
 
 		emojiParser = EmojiParser(now['symbol']['@name'])
-		print(emojiParser.convertSematicsToEmoji())
-		temp = now['temperature']
-		print(temp['@value'] + ' ' + temp['@unit'] + ' ' + self.symbol_table[self.name])
+		weatherIcon_output = emojiParser.convertSematicsToEmoji()
 
-		
+		print('%s %s' % (temperature_output, weatherIcon_output))
 
 
 class TermWeather(object):
