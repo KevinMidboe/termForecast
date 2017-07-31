@@ -1,5 +1,5 @@
 # Terminal Weather
-[![PyPI](https://img.shields.io/pypi/pyversions/term-forecast.svg)]()
+[![PyPI](https://img.shields.io/pypi/pyversions/term-forecast.svg)](https://pypi.python.org/pypi/term-forecast)
 [![PyPI](https://img.shields.io/pypi/l/term-forecast.svg)]()
 [![PyPI](https://img.shields.io/pypi/v/term-forecast.svg)]()
 
