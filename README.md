@@ -1,6 +1,7 @@
 # Terminal Weather
-[![Python](https://img.shields.io/badge/python-v3.6.0-blue.svg)](https://www.python.org/downloads)
-[![PyPI version](https://badge.fury.io/py/term-forecast.svg)](https://badge.fury.io/py/term-forecast)
+[![PyPI](https://img.shields.io/pypi/pyversions/term-forecast.svg)]()
+[![PyPI](https://img.shields.io/pypi/v/term-forecast.svg)]()
+[![PyPI](https://img.shields.io/pypi/l/term-forecast.svg)]()
 
 Terminal Weather is a easily accesible terminal based weather station.
 
