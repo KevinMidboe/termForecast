@@ -1,9 +1,9 @@
-# Terminal Weather
+# Terminal Forecast
 [![PyPI](https://img.shields.io/pypi/pyversions/term-forecast.svg)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/l/term-forecast.svg)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/term-forecast.svg)](https://pypi.python.org/pypi/term-forecast)
 
-Terminal Weather is a easily accesible terminal based weather station.
+Terminal Forecast is a easily accesible terminal based weather station.
 
 <img src='media/demo.gif' width="561" height="306">
 
