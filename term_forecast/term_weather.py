@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-27 21:26:53
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-30 14:05:28
+# @Last Modified time: 2017-07-30 19:56:18
 
 # TODO LIST
 # Get coordinates from IP ✔
@@ -107,6 +107,9 @@ class WeatherForecast(object):
 
 
 class TermWeather(object):
+	def __init__(self):
+		print('here')
+
 	# Add now, forecast as args
 	def auto(self):
 		loadingAnimation = LoadingAnimation()
