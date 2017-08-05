@@ -3,7 +3,7 @@
 # @Author: KevinMidboe
 # @Date:   2017-07-29 11:56:24
 # @Last Modified by:   KevinMidboe
-# @Last Modified time: 2017-07-30 13:17:19
+# @Last Modified time: 2017-08-05 16:32:44
 
 from fuzzywuzzy import process
 
@@ -124,7 +124,7 @@ class EmojiParser(object):
 		forecast_emoji = self.emojify(forecast)
 
 		if forecast in severity:
-			return ('%s %s' % (forecast_emoji, severity[forecast]))
+			return ('%s %s' % (forecast_emoji, severity[forecast][self.severity]))
 		else:
 			return forecast_emoji
 
